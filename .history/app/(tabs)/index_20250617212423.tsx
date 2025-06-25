@@ -1,4 +1,3 @@
-import { FitLifeColors } from '@/constants/Colors';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Alert, KeyboardAvoidingView, Platform, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
@@ -6,54 +5,14 @@ import { Alert, KeyboardAvoidingView, Platform, SafeAreaView, StyleSheet, Text, 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const handleLogin = async () => {
-    if (!email.trim() || !password.trim()) {
-      Alert.alert('Hata', 'Lütfen email ve şifre girin!');
-      return;
-    }
-
-    setIsLoading(true);
-    
-    try {
-      const response = await fetch('http://localhost:8082/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ 
-          email: email.trim(), 
-          password: password.trim() 
-        })
-      });
-
-      const data = await response.json();
-      
-      if (response.ok) {
-        // Başarılı giriş
-        if (data.role === 'ADMIN') {
-          // Admin panele yönlendir
-          router.push('/admin-panel');
-        } else {
-          // Üye paneline yönlendir (userId'yi parametre olarak geç)
-          router.push({
-            pathname: '/member-dashboard',
-            params: { 
-              userId: data.userId,
-              userName: data.name
-            }
-          });
-        }
-      } else {
-        Alert.alert('Hata', data.message || 'Geçersiz email veya şifre!');
-      }
-    } catch (error) {
-      console.error('Login error:', error);
-      Alert.alert('Hata', 'Bağlantı hatası! Sunucunun çalıştığından emin olun.');
-    } finally {
-      setIsLoading(false);
+  const handleLogin = () => {
+    // Basit admin kontrolü - daha sonra API ile değiştirilecek
+    if (email === 'admin@fitlife.com' && password === 'admin123') {
+      router.push('/admin-panel');
+    } else {
+      Alert.alert('Hata', 'Geçersiz email veya şifre!');
     }
   };
 
@@ -76,13 +35,12 @@ export default function LoginScreen() {
               <Text style={styles.inputLabel}>E-posta</Text>
               <TextInput
                 style={styles.input}
-                placeholder="E-posta adresinizi girin"
-                placeholderTextColor={FitLifeColors.textMuted}
+                placeholder="admin@fitlife.com"
+                placeholderTextColor="#999"
                 value={email}
                 onChangeText={setEmail}
                 keyboardType="email-address"
                 autoCapitalize="none"
-                editable={!isLoading}
               />
             </View>
 
@@ -90,23 +48,16 @@ export default function LoginScreen() {
               <Text style={styles.inputLabel}>Şifre</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Şifrenizi girin"
-                placeholderTextColor={FitLifeColors.textMuted}
+                placeholder="admin123"
+                placeholderTextColor="#999"
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry
-                editable={!isLoading}
               />
             </View>
 
-            <TouchableOpacity 
-              style={[styles.loginButton, isLoading && styles.disabledButton]} 
-              onPress={handleLogin}
-              disabled={isLoading}
-            >
-              <Text style={styles.loginButtonText}>
-                {isLoading ? 'Giriş yapılıyor...' : 'Giriş Yap'}
-              </Text>
+            <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+              <Text style={styles.loginButtonText}>Giriş Yap</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -118,7 +69,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: FitLifeColors.background,
+    backgroundColor: '#F8F9FA',
   },
   keyboardView: {
     flex: 1,
@@ -135,12 +86,12 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 42,
     fontWeight: 'bold',
-    color: FitLifeColors.textPrimary,
+    color: '#2C3E50',
     marginBottom: 12,
   },
   subtitleText: {
     fontSize: 16,
-    color: FitLifeColors.textSecondary,
+    color: '#7F8C8D',
     textAlign: 'center',
   },
   formContainer: {
@@ -151,31 +102,28 @@ const styles = StyleSheet.create({
   },
   inputLabel: {
     fontSize: 16,
-    color: FitLifeColors.textPrimary,
+    color: '#2C3E50',
     marginBottom: 8,
     fontWeight: '500',
   },
   input: {
-    backgroundColor: FitLifeColors.white,
+    backgroundColor: '#FFFFFF',
     borderWidth: 1,
-    borderColor: FitLifeColors.gray,
+    borderColor: '#E0E6ED',
     borderRadius: 8,
     padding: 16,
     fontSize: 16,
-    color: FitLifeColors.textPrimary,
+    color: '#2C3E50',
   },
   loginButton: {
-    backgroundColor: FitLifeColors.primary,
+    backgroundColor: '#74B9FF',
     borderRadius: 8,
     padding: 18,
     alignItems: 'center',
     marginTop: 20,
   },
-  disabledButton: {
-    opacity: 0.6,
-  },
   loginButtonText: {
-    color: FitLifeColors.white,
+    color: '#FFFFFF',
     fontSize: 18,
     fontWeight: '600',
   },

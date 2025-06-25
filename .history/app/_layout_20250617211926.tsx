@@ -27,7 +27,6 @@ export default function RootLayout() {
         <Stack.Screen name="member-detail" options={{ title: 'Üye Detayı' }} />
         <Stack.Screen name="exercise-management" options={{ title: 'Spor Yönetimi' }} />
         <Stack.Screen name="add-exercise" options={{ title: 'Egzersiz Ekle' }} />
-        <Stack.Screen name="member-dashboard" options={{ title: 'Benim Programım', headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar style="auto" />

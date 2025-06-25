@@ -1,4 +1,3 @@
-import { FitLifeColors } from '@/constants/Colors';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Alert, KeyboardAvoidingView, Platform, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
@@ -77,7 +76,7 @@ export default function LoginScreen() {
               <TextInput
                 style={styles.input}
                 placeholder="E-posta adresinizi girin"
-                placeholderTextColor={FitLifeColors.textMuted}
+                placeholderTextColor="#999"
                 value={email}
                 onChangeText={setEmail}
                 keyboardType="email-address"
@@ -90,8 +89,8 @@ export default function LoginScreen() {
               <Text style={styles.inputLabel}>Şifre</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Şifrenizi girin"
-                placeholderTextColor={FitLifeColors.textMuted}
+                placeholder="admin123 veya 123456"
+                placeholderTextColor="#999"
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry
@@ -118,7 +117,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: FitLifeColors.background,
+    backgroundColor: '#F8F9FA',
   },
   keyboardView: {
     flex: 1,
@@ -135,12 +134,12 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 42,
     fontWeight: 'bold',
-    color: FitLifeColors.textPrimary,
+    color: '#2C3E50',
     marginBottom: 12,
   },
   subtitleText: {
     fontSize: 16,
-    color: FitLifeColors.textSecondary,
+    color: '#7F8C8D',
     textAlign: 'center',
   },
   formContainer: {
@@ -151,21 +150,21 @@ const styles = StyleSheet.create({
   },
   inputLabel: {
     fontSize: 16,
-    color: FitLifeColors.textPrimary,
+    color: '#2C3E50',
     marginBottom: 8,
     fontWeight: '500',
   },
   input: {
-    backgroundColor: FitLifeColors.white,
+    backgroundColor: '#FFFFFF',
     borderWidth: 1,
-    borderColor: FitLifeColors.gray,
+    borderColor: '#E0E6ED',
     borderRadius: 8,
     padding: 16,
     fontSize: 16,
-    color: FitLifeColors.textPrimary,
+    color: '#2C3E50',
   },
   loginButton: {
-    backgroundColor: FitLifeColors.primary,
+    backgroundColor: '#74B9FF',
     borderRadius: 8,
     padding: 18,
     alignItems: 'center',
@@ -175,7 +174,7 @@ const styles = StyleSheet.create({
     opacity: 0.6,
   },
   loginButtonText: {
-    color: FitLifeColors.white,
+    color: '#FFFFFF',
     fontSize: 18,
     fontWeight: '600',
   },
